@@ -14,10 +14,7 @@ return new class extends Migration
         Schema::create('universes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('real_name');
-            $table->foreignId('universe_Id')->nullable()->index();
-            $table->foreignId('gender_Id')->nullable()->index();
-            $table->string('picture')->nullable()->index();
+            $table->string('description');
             $table->timestamps();
         });
     }
