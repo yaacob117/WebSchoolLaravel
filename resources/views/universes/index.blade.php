@@ -3,13 +3,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Gender</title>
+    <title>Universes</title>
 </head>
 <body>
     <h1>Gender</h1>
     <table>
         <thead>
-        <tr>
+        <tr>    
             <th>Id</th>
             <th>name</th>
         </tr>
@@ -17,7 +17,7 @@
 
 
         <tbody>
-            @foreach ($gender as $item) 
+            @foreach ($universe as $item) 
             <tr>
                 <td>{{ $item->id }}</td>
                 <td>{{ $item->name }}</td>
