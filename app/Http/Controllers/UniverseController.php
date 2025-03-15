@@ -21,7 +21,8 @@ class UniverseController extends Controller
      */
     public function create()
     {
-        return view('universes.create');
+        $universes = Universe::select('id', 'name') ->get();
+        return view('universes.create', compact('universes'));
     }
 
     /**
@@ -31,7 +32,7 @@ class UniverseController extends Controller
     {
         Universe::create([
             'name' => $request->name,
-            'description' => $request->description
+            'description' => $request->description,
         ]);
 
         return to_route('universe.index');
@@ -42,7 +43,8 @@ class UniverseController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $universe = Universe::find($id);
+        return view('universes.show', compact('universe'));
     }
 
     /**
