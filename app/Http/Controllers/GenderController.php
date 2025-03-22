@@ -50,7 +50,8 @@ class GenderController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $gender = Gender::find($id);
+        return view('genders.edit', compact('gender'));
     }
 
     /**
@@ -58,7 +59,11 @@ class GenderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $gender = Gender::find($id);
+        $gender->update([
+            'name' => $request->name,
+        ]);
+        return to_route('gender.index');
     }
 
     /**
@@ -66,6 +71,8 @@ class GenderController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $gender = Gender::find($id);
+        $gender->delete();
+        return to_route('gender.index');
     }
 }

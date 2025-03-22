@@ -7,6 +7,12 @@
     <title>Universe</title>
 </head>
 <body>
-    {{$universe->name}}
+    <h1>{{ $universe->name }}</h1>
+    
+    <p><strong>ID:</strong> {{ $universe->id }}</p>
+    <p><strong>Description:</strong> {{ $universe->description }}</p>
+    
+    <br>
+    <a href="{{ route('universe.index') }}">Back to List</a>
 </body>
 </html>
