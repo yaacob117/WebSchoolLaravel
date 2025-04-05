@@ -63,7 +63,7 @@ class GenderController extends Controller
         $gender->update([
             'name' => $request->name,
         ]);
-        return to_route('gender.index');
+        return to_route('genders.index');
     }
 
     /**
@@ -72,7 +72,13 @@ class GenderController extends Controller
     public function destroy(string $id)
     {
         $gender = Gender::find($id);
+
+        if (!$gender) {
+            return redirect()->route('genders.index')->with('error', 'Gender not found.');
+        }
+
         $gender->delete();
-        return to_route('gender.index');
+
+        return redirect()->route('genders.index')->with('success', 'Gender deleted successfully.');
     }
 }

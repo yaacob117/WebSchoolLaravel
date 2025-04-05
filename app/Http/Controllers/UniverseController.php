@@ -35,7 +35,7 @@ class UniverseController extends Controller
             'description' => $request->description,
         ]);
 
-        return to_route('universe.index');
+        return redirect()->route('universes.index');
     }
 
     /**
@@ -66,7 +66,7 @@ class UniverseController extends Controller
             'name' => $request->name,
             'description' => $request->description,
         ]);
-        return to_route('universe.index');
+        return redirect()->route('universes.index');
     }
 
     /**
@@ -75,7 +75,12 @@ class UniverseController extends Controller
     public function destroy(string $id)
     {
         $universe = Universe::find($id);
+
+        if (!$universe) {
+            return redirect()->route('universes.index')->with('error', 'Universe not found.');
+        }
+
         $universe->delete();
-        return to_route('universe.index');
+        return redirect()->route('universes.index')->with('success', 'Universe deleted successfully.');
     }
 }

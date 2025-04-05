@@ -15,10 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('real_name');
-            $table->foreignId('universe_id')->constrained('universes');
-            $table->foreignId('gender_id')->constrained('gender');
+            $table->unsignedBigInteger('universe_id');
+            $table->unsignedBigInteger('gender_id');
             $table->string('picture');
             $table->timestamps();
+
+            $table->foreign('universe_id')->references('id')->on('universes')->onDelete('cascade');
+            $table->foreign('gender_id')->references('id')->on('genders')->onDelete('cascade');
         });
     }
 

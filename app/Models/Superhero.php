@@ -9,22 +9,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Superhero extends Model
 {
     use HasFactory;
-    
-    protected $table = 'superheroes';
-    
-    protected $fillable = [
-        'name',
-        'real_name',
-        'universe_id',
-        'gender_id',
-        'picture'
-    ];
-    
+
+    protected $fillable = ['name', 'real_name', 'universe_id', 'gender_id', 'picture'];
+
     public function universe()
     {
         return $this->belongsTo(Universe::class);
     }
-    
+
     public function gender()
     {
         return $this->belongsTo(Gender::class);

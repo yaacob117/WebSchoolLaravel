@@ -1,45 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Universes</title>
-</head>
-<body>
+@extends('layouts.main')
+
+@section('content')
+<div class="container">
     <h1>Universes</h1>
+    <a href="{{ route('universes.create') }}" class="btn btn-primary">Create New Universe</a>
 
-    <a href="{{ route('universe.create') }}">Create New Universe</a>
-
-    <table>
+    <table class="table mt-4">
         <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-
-        <tbody>
-            @foreach ($universes as $universe) 
             <tr>
-                <td>{{ $universe->id }}</td>
-                <td>{{ $universe->name }}</td>
-                <td>{{ $universe->description }}</td>
-                <td>
-                    <a href="{{ route('universe.show', $universe->id) }}">Show</a>
-                    <a href="{{ route('universe.edit', $universe->id) }}">Edit</a>
-
-                    <form action="{{ route('universe.destroy', $universe->id) }}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <input type="submit" value="Delete" onClick="return confirm('Are you sure?')">
-                    </form>
-                </td>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Actions</th>
             </tr>
+        </thead>
+        <tbody>
+            @foreach ($universes as $universe)
+                <tr>
+                    <td>{{ $universe->id }}</td>
+                    <td>{{ $universe->name }}</td>
+                    <td>{{ $universe->description }}</td>
+                    <td>
+                        <a href="{{ route('universes.show', $universe->id) }}" class="btn btn-info">Show</a>
+                        <a href="{{ route('universes.edit', $universe->id) }}" class="btn btn-warning">Edit</a>
+                        <form action="{{ route('universes.destroy', $universe->id) }}" method="POST" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                        </form>
+                    </td>
+                </tr>
             @endforeach
         </tbody>
     </table>
-</body>
-</html>
+</div>
+@endsection

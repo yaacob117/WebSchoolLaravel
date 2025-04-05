@@ -25,7 +25,7 @@ class SuperheroController extends Controller
     {
         $genders = Gender::select('id', 'name')->get();
         $universes = Universe::select('id', 'name')->get();
-        return view('superheroes.create',   compact('genders', 'universes'));
+        return view('superheroes.create', compact('genders', 'universes'));
     }
 
     /**
@@ -49,7 +49,8 @@ class SuperheroController extends Controller
     public function show(string $id)
     {
         $superhero = Superhero::find($id);
-        return view('superheroes.show', compact('superhero'));}
+        return view('superheroes.show', compact('superhero'));
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -68,6 +69,11 @@ class SuperheroController extends Controller
     public function update(Request $request, string $id)
     {
         $superhero = Superhero::find($id);
+
+        if (!$superhero) {
+            return redirect()->route('superheroes.index')->with('error', 'Superhero not found.');
+        }
+
         $superhero->update([
             'gender_id' => $request->gender_id,
             'universe_id' => $request->universe_id,
@@ -75,7 +81,8 @@ class SuperheroController extends Controller
             'real_name' => $request->real_name,
             'picture' => $request->picture,
         ]);
-        return to_route('superhero.index');
+
+        return redirect()->route('superheroes.index')->with('success', 'Superhero updated successfully.');
     }
 
     /**
@@ -84,7 +91,13 @@ class SuperheroController extends Controller
     public function destroy(string $id)
     {
         $superhero = Superhero::find($id);
+
+        if (!$superhero) {
+            return redirect()->route('superheroes.index')->with('error', 'Superhero not found.');
+        }
+
         $superhero->delete();
-        return to_route('superhero.index');
+
+        return redirect()->route('superheroes.index')->with('success', 'Superhero deleted successfully.');
     }
 }

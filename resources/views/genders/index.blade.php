@@ -1,43 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Genders</title>
-</head>
-<body>
+@extends('layouts.main')
+
+@section('content')
+<div class="container">
     <h1>Genders</h1>
+    <a href="{{ route('genders.create') }}" class="btn btn-primary">Create New Gender</a>
 
-    <a href="{{ route('gender.create') }}">Create New Gender</a>
-
-    <table>
+    <table class="table mt-4">
         <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-
-        <tbody>
-            @foreach ($genders as $gender) 
             <tr>
-                <td>{{ $gender->id }}</td>
-                <td>{{ $gender->name }}</td>
-                <td>
-                    <a href="{{ route('gender.show', $gender->id) }}">Show</a>
-                    <a href="{{ route('gender.edit', $gender->id) }}">Edit</a>
-
-                    <form action="{{ route('gender.destroy', $gender->id) }}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <input type="submit" value="Delete" onClick="return confirm('Are you sure?')">
-                    </form>
-                </td>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Actions</th>
             </tr>
+        </thead>
+        <tbody>
+            @foreach ($genders as $gender)
+                <tr>
+                    <td>{{ $gender->id }}</td>
+                    <td>{{ $gender->name }}</td>
+                    <td>
+                        <a href="{{ route('genders.show', $gender->id) }}" class="btn btn-info">Show</a>
+                        <a href="{{ route('genders.edit', $gender->id) }}" class="btn btn-warning">Edit</a>
+                        <form action="{{ route('genders.destroy', $gender->id) }}" method="POST" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                        </form>
+                    </td>
+                </tr>
             @endforeach
         </tbody>
     </table>
-</body>
-</html>
+</div>
+@endsection
